@@ -27,45 +27,45 @@ class Configuration implements ConfigurationInterface
     {
         $supportedDrivers = array('orm', 'mongodb');
 
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('pix_sortable_behavior');
+        $treeBuilder = new TreeBuilder('pix_sortable_behavior');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
             ->scalarNode('db_driver')
-                ->info(sprintf(
-                    'These following drivers are supported: %s',
-                    implode(', ', $supportedDrivers)
-                ))
-                ->validate()
-                    ->ifNotInArray($supportedDrivers)
-                    ->thenInvalid('The driver "%s" is not supported. Please choose one of ('.implode(', ', $supportedDrivers).')')
-                ->end()
-                ->cannotBeOverwritten()
-                ->cannotBeEmpty()
-                ->defaultValue('orm')
+            ->info(sprintf(
+                'These following drivers are supported: %s',
+                implode(', ', $supportedDrivers)
+            ))
+            ->validate()
+            ->ifNotInArray($supportedDrivers)
+            ->thenInvalid('The driver "%s" is not supported. Please choose one of ('.implode(', ', $supportedDrivers).')')
+            ->end()
+            ->cannotBeOverwritten()
+            ->cannotBeEmpty()
+            ->defaultValue('orm')
             ->end()
             ->arrayNode('position_field')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->scalarNode('default')
-                        ->defaultValue('position')
-                    ->end()
-                    ->arrayNode('entities')
-                        ->prototype('scalar')->end()
-                    ->end()
-                ->end()
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('default')
+            ->defaultValue('position')
+            ->end()
+            ->arrayNode('entities')
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
             ->end()
 
             ->arrayNode('sortable_groups')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->arrayNode('entities')
-                        ->useAttributeAsKey('name')
-                        ->prototype('variable')
-                        ->end()
-                    ->end()
-                ->end()
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->arrayNode('entities')
+            ->useAttributeAsKey('name')
+            ->prototype('variable')
+            ->end()
+            ->end()
+            ->end()
             ->end()
 
         ;

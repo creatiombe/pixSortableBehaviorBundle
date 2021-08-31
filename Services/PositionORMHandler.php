@@ -15,14 +15,12 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Class PositionORMHandler
- *
  * @package Pix\SortableBehaviorBundle
  */
 class PositionORMHandler extends PositionHandler
 {
     /**
-     * @var array
+     * @var array<integer>
      */
     private static $cacheLastPosition = [];
 
@@ -41,9 +39,8 @@ class PositionORMHandler extends PositionHandler
 
     /**
      * @param object $entity
-     * @return int
      */
-    public function getLastPosition($entity)
+    public function getLastPosition($entity): int
     {
         $entityClass = ClassUtils::getClass($entity);
         $parentEntityClass = true;
@@ -58,7 +55,7 @@ class PositionORMHandler extends PositionHandler
                 $entityClass = $parentEntityClass;
             }
         }
-        
+
         $groups      = $this->getSortableGroupsFieldByEntity($entityClass);
 
         $cacheKey = $this->getCacheKeyForLastPosition($entity, $groups);
