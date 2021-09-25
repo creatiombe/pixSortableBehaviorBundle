@@ -55,7 +55,7 @@ class PositionORMHandler extends PositionHandler
                 $entityClass = $parentEntityClass;
             }
         }
-        
+
         $groups      = $this->getSortableGroupsFieldByEntity($entityClass);
 
         $cacheKey = $this->getCacheKeyForLastPosition($entity, $groups);
